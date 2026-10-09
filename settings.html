@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniHub | Settings</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--red:#f85149}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer;border:1px solid var(--border);border-radius:7px;background:#21262d;color:var(--text);padding:10px 14px}
+button:hover{border-color:var(--accent)}
+.primary{background:var(--accent);color:#07111e;font-weight:700;border-color:var(--accent)}
+.danger{border-color:#f8514966;color:#ff7b72}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;flex-shrink:0;background:#010409;border-right:1px solid var(--border);padding:25px 16px}
+.logo{font-size:23px;font-weight:800;margin:0 0 30px 9px}
+.logo span{color:var(--accent)}
+.nav{display:grid;gap:7px}
+.nav a{padding:10px 12px;border-radius:7px;color:var(--muted)}
+.nav a:hover,.nav a.active{background:#21262d;color:var(--text)}
+.nav a.active{border-left:3px solid var(--accent)}
+.sidebar-note{color:var(--muted);font-size:12px;margin:35px 10px}
+main{flex:1;min-width:0;padding:30px clamp(16px,4vw,48px);max-width:1100px}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.5px}
+h1{font-size:clamp(27px,4vw,38px);margin:8px 0}
+h2{font-size:19px;margin:0 0 8px}
+p{color:var(--muted);margin:5px 0 16px}
+.topbar{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:30px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:23px;margin-bottom:18px}
+.field{display:grid;gap:7px;margin:20px 0}
+label{font-weight:600;font-size:14px}
+input,select{width:100%;padding:11px 12px;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text)}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.hint{font-size:12px;color:var(--muted)}
+.colors{display:flex;gap:12px;flex-wrap:wrap}
+.color-option{width:37px;height:37px;padding:0;border-radius:50%;border:3px solid var(--border)}
+.color-option[aria-pressed="true"]{outline:2px solid var(--text);outline-offset:3px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 0}
+.toggle-row input{width:20px;height:20px;accent-color:var(--accent)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.message{min-height:24px;color:#3fb950;font-size:13px;margin-top:12px}
+footer{color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:950px){.sidebar{width:190px}}
+@media(max-width:650px){.layout{display:block}.sidebar{width:100%;padding:13px 15px;border-right:0;border-bottom:1px solid var(--border)}.logo{margin:0 0 12px 4px;font-size:21px}.nav{display:flex;overflow-x:auto}.nav a{white-space:nowrap;padding:8px 10px}.sidebar-note{display:none}main{padding:22px 15px}.panel{padding:17px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">Mini<span>Hub</span> ⚡</div>
+    <nav class="nav">
+      <a href="index.html">⌂ &nbsp; Home</a>
+      <a href="dashboard.html">▦ &nbsp; Dashboard</a>
+      <a class="active" href="settings.html">⚙ &nbsp; Settings</a>
+    </nav>
+    <div class="sidebar-note">MAKE IT YOURS<br><br>Your workspace, your pace.</div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">PERSONALIZE YOUR WORKSPACE</div>
+        <h1>Settings</h1>
+        <p>Manage your profile and practice preferences.</p>
+      </div>
+      <a href="index.html">← Home</a>
+    </div>
+
+    <form id="settingsForm">
+      <section class="panel">
+        <h2>Profile</h2>
+        <p>Your display name appears throughout MiniHub.</p>
+        <div class="field">
+          <label for="username">Display name</label>
+          <input id="username" name="username" maxlength="30" required placeholder="Enter your name">
+          <div class="hint">Maximum 30 characters.</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Appearance</h2>
+        <p>MiniHub uses a dark background. Choose your accent color.</p>
+        <div class="field">
+          <label>Accent color</label>
+          <div class="colors">
+            <button type="button" class="color-option" style="background:#58a6ff" data-color="#58a6ff" aria-label="Blue accent" aria-pressed="false"></button>
+            <button type="button" class="color-option" style="background:#bc8cff" data-color="#bc8cff" aria-label="Purple accent" aria-pressed="false"></button>
+            <button type="button" class="color-option" style="background:#3fb950" data-color="#3fb950" aria-label="Green accent" aria-pressed="false"></button>
+            <button type="button" class="color-option" style="background:#f0883e" data-color="#f0883e" aria-label="Orange accent" aria-pressed="false"></button>
+          </div>
+          <div class="hint" id="colorName">Blue</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Learning preferences</h2>
+        <p>Set a realistic goal for your practice sessions.</p>
+        <div class="field">
+          <label for="dailyGoal">Daily exercise goal</label>
+          <select id="dailyGoal" name="dailyGoal">
+            <option value="1">1 exercise per day</option>
+            <option value="2">2 exercises per day</option>
+            <option value="3">3 exercises per day</option>
+          </select>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <strong>Learning tips</strong>
+            <div class="hint">Enable learning tips preference.</div>
+          </div>
+          <input type="checkbox" id="tips" aria-label="Enable learning tips">
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="primary" type="submit">Save settings</button>
+        <a href="dashboard.html"><button type="button">View dashboard</button></a>
+      </div>
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+    </form>
+
+    <section class="panel">
+      <h2>Progress management</h2>
+      <p>Reset your practice history and XP. Your name and appearance settings will be preserved.</p>
+      <button type="button" class="danger" id="resetButton">Reset practice progress</button>
+      <div class="message" id="resetMessage" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer>MiniHub Practice Mode · Settings are saved in this browser.</footer>
+  </main>
+</div>
+
+<script>
+const STORAGE_KEY = "minihub_state_v1";
+const defaults = {
+  username:"Raja",
+  accent:"#58a6ff",
+  completed:[],
+  xp:0,
+  dailyGoal:3,
+  tips:true
+};
+let selectedAccent = defaults.accent;
+
+function loadState(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(!saved||typeof saved!=="object")return {...defaults};
+    return {
+      ...defaults,
+      ...saved,
+      completed:Array.isArray(saved.completed)?saved.completed:[],
+      xp:Math.max(0,Number(saved.xp)||0)
+    };
+  }catch{return {...defaults};}
+}
+
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+}
+
+function applyAccent(color){
+  selectedAccent=color;
+  document.documentElement.style.setProperty("--accent",color);
+  document.querySelectorAll(".color-option").forEach(button=>{
+    button.setAttribute("aria-pressed",String(button.dataset.color===color));
+  });
+  const names={
+    "#58a6ff":"Blue",
+    "#bc8cff":"Purple",
+    "#3fb950":"Green",
+    "#f0883e":"Orange"
+  };
+  document.getElementById("colorName").textContent=names[color]||"Custom";
+}
+
+function populate(){
+  const state=loadState();
+  document.getElementById("username").value=state.username;
+  document.getElementById("dailyGoal").value=String(state.dailyGoal);
+  document.getElementById("tips").checked=Boolean(state.tips);
+  applyAccent(state.accent);
+}
+
+document.querySelectorAll(".color-option").forEach(button=>{
+  button.addEventListener("click",()=>applyAccent(button.dataset.color));
+});
+
+document.getElementById("settingsForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const username=document.getElementById("username").value.trim();
+  if(!username){
+    document.getElementById("message").textContent="Please enter a display name.";
+    return;
+  }
+
+  const state=loadState();
+  state.username=username;
+  state.accent=selectedAccent;
+  state.dailyGoal=Number(document.getElementById("dailyGoal").value);
+  state.tips=document.getElementById("tips").checked;
+  saveState(state);
+
+  document.getElementById("message").textContent="✓ Settings saved successfully!";
+});
+
+document.getElementById("resetButton").addEventListener("click",()=>{
+  const confirmed=confirm("Reset all completed exercises and XP? Your profile settings will remain.");
+  if(!confirmed)return;
+
+  const state=loadState();
+  state.completed=[];
+  state.xp=0;
+  saveState(state);
+  document.getElementById("resetMessage").textContent="✓ Practice progress has been reset.";
+  document.getElementById("message").textContent="";
+});
+
+window.addEventListener("storage",event=>{
+  if(event.key===STORAGE_KEY)populate();
+});
+
+populate();
+</script>
+</body>
+</html>

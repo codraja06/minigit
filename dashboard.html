@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniHub | Dashboard</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:1px solid var(--border);border-radius:7px;background:#21262d;color:var(--text);padding:9px 13px}
+button:hover{border-color:var(--accent)}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:235px;flex-shrink:0;background:#010409;border-right:1px solid var(--border);padding:25px 16px}
+.logo{font-size:23px;font-weight:800;margin:0 0 30px 9px}
+.logo span{color:var(--accent)}
+.nav{display:grid;gap:7px}
+.nav a{padding:10px 12px;border-radius:7px;color:var(--muted)}
+.nav a:hover,.nav a.active{background:#21262d;color:var(--text)}
+.nav a.active{border-left:3px solid var(--accent)}
+.sidebar-note{color:var(--muted);font-size:12px;margin:35px 10px}
+main{flex:1;min-width:0;padding:30px clamp(16px,4vw,48px)}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.5px}
+h1{font-size:clamp(27px,4vw,38px);line-height:1.2;margin:8px 0}
+h2{font-size:19px;margin:0 0 8px}
+p{color:var(--muted);margin:5px 0 15px}
+.topbar{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:32px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:24px 0}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:17px}
+.label{color:var(--muted);font-size:13px}
+.value{font-size:28px;font-weight:750;margin-top:6px}
+.progress{height:9px;background:#30363d;border-radius:10px;overflow:hidden;margin:15px 0}
+.progress div{height:100%;width:0;background:var(--accent);border-radius:10px;transition:width .25s}
+.task{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.task:last-child{border-bottom:0}
+.task p{margin:3px 0 0;font-size:13px}
+.status{font-size:12px;border-radius:20px;padding:4px 9px;background:#30363d;color:var(--muted);white-space:nowrap}
+.status.done{background:#23863633;color:var(--green)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+footer{color:var(--muted);font-size:12px;margin-top:30px}
+@media(max-width:950px){.sidebar{width:190px}}
+@media(max-width:650px){.layout{display:block}.sidebar{width:100%;padding:13px 15px;border-right:0;border-bottom:1px solid var(--border)}.logo{margin:0 0 12px 4px;font-size:21px}.nav{display:flex;overflow-x:auto}.nav a{white-space:nowrap;padding:8px 10px}.sidebar-note{display:none}main{padding:22px 15px}.stats{grid-template-columns:1fr;gap:10px}.panel{padding:17px}.value{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">Mini<span>Hub</span> ⚡</div>
+    <nav class="nav">
+      <a href="index.html">⌂ &nbsp; Home</a>
+      <a class="active" href="dashboard.html">▦ &nbsp; Dashboard</a>
+      <a href="settings.html">⚙ &nbsp; Settings</a>
+    </nav>
+    <div class="sidebar-note">YOUR DEVELOPER JOURNEY<br><br>Every commit counts.</div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">YOUR LEARNING OVERVIEW</div>
+        <h1>Dashboard</h1>
+        <p>Track your practice and celebrate your progress.</p>
+      </div>
+      <a href="settings.html" id="userBadge">👤 Learner</a>
+    </div>
+
+    <div class="stats">
+      <section class="panel">
+        <div class="label">Total XP</div>
+        <div class="value" id="xp">0</div>
+      </section>
+      <section class="panel">
+        <div class="label">Exercises completed</div>
+        <div class="value" id="done">0 / 3</div>
+      </section>
+      <section class="panel">
+        <div class="label">Current level</div>
+        <div class="value" id="level">1</div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>Git fundamentals progress</h2>
+      <p id="progressText">0% completed — let's get started!</p>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="label" id="remaining">3 exercises remaining</div>
+    </section>
+
+    <section class="panel">
+      <h2>Exercise checklist</h2>
+      <p>Your progress is shared with the Home page.</p>
+      <div class="task">
+        <div><strong>Git status</strong><p>Inspect local repository changes</p></div>
+        <span class="status" id="status-status">Not started</span>
+      </div>
+      <div class="task">
+        <div><strong>Git fetch</strong><p>Get updates from a remote repository</p></div>
+        <span class="status" id="status-fetch">Not started</span>
+      </div>
+      <div class="task">
+        <div><strong>Git rebase</strong><p>Replay commits onto the latest base</p></div>
+        <span class="status" id="status-rebase">Not started</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Next step</h2>
+      <p id="nextStep">Start with Git status and build your fundamentals.</p>
+      <div class="actions">
+        <a href="index.html"><button>Go to practice →</button></a>
+        <a href="settings.html"><button>Manage settings</button></a>
+      </div>
+    </section>
+
+    <footer>MiniHub Practice Mode · Progress is stored in this browser.</footer>
+  </main>
+</div>
+
+<script>
+const STORAGE_KEY = "minihub_state_v1";
+const exercises = [
+  {id:"status", name:"Git status"},
+  {id:"fetch", name:"Git fetch"},
+  {id:"rebase", name:"Git rebase"}
+];
+
+function loadState(){
+  const defaults={username:"Raja",accent:"#58a6ff",completed:[],xp:0,dailyGoal:3,tips:true};
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(!saved||typeof saved!=="object")return defaults;
+    return {...defaults,...saved,completed:Array.isArray(saved.completed)?saved.completed:[],xp:Math.max(0,Number(saved.xp)||0)};
+  }catch{return defaults;}
+}
+
+function render(){
+  const state=loadState();
+  const validDone=exercises.filter(e=>state.completed.includes(e.id));
+  const count=validDone.length;
+  const percent=Math.round(count/exercises.length*100);
+
+  document.documentElement.style.setProperty("--accent",state.accent);
+  document.getElementById("userBadge").textContent="👤 "+state.username;
+  document.getElementById("xp").textContent=state.xp;
+  document.getElementById("done").textContent=count+" / "+exercises.length;
+  document.getElementById("level").textContent=Math.floor(state.xp/100)+1;
+  document.getElementById("progressText").textContent=percent+"% completed";
+  document.getElementById("progressBar").style.width=percent+"%";
+  document.getElementById("remaining").textContent=(exercises.length-count)+" exercises remaining";
+
+  exercises.forEach(e=>{
+    const done=state.completed.includes(e.id);
+    const el=document.getElementById("status-"+e.id);
+    el.textContent=done?"✓ Completed":"Not started";
+    el.classList.toggle("done",done);
+  });
+
+  const next=exercises.find(e=>!state.completed.includes(e.id));
+  document.getElementById("nextStep").textContent=next
+    ?"Next: "+next.name+". Open Home to practice this command."
+    :"🎉 All three exercises completed! Keep practicing to reinforce what you've learned.";
+}
+
+window.addEventListener("storage",event=>{
+  if(event.key===STORAGE_KEY)render();
+});
+render();
+</script>
+</body>
+</html>
