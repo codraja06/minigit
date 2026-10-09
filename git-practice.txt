@@ -1,2 +1,2 @@
 Git Practice
-Commit 1: Learning Git workflow
+Commit 1: workflow
